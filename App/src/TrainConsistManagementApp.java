@@ -1,34 +1,32 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
-        // Step 1: Create a LinkedHashSet to maintain order and uniqueness
-        Set<String> trainFormation = new LinkedHashSet<>();
+        // Step 1: Create a HashMap where Key is Bogie Type (String)
+        // and Value is Capacity (Integer)
+        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        System.out.println("--- Building Train Consist (Insertion Order) ---");
+        System.out.println("--- Mapping Bogie Capacities ---");
 
-        // Step 2: Attach bogies in a specific sequence
-        trainFormation.add("Engine (Loco)");
-        trainFormation.add("Sleeper Coach");
-        trainFormation.add("Cargo Bogie");
-        trainFormation.add("Guard Coach");
+        // Step 2: Use put() to associate Bogies with their respective capacities
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair Car", 56);
+        bogieCapacityMap.put("First Class", 24);
+        bogieCapacityMap.put("Cargo (Rectangular)", 1000); // 1000 kg capacity
+        bogieCapacityMap.put("Cargo (Cylindrical)", 850);  // 850 kg capacity
 
-        // Step 3: Attempting a duplicate attachment
-        // In a real yard, you can't have two physical "Sleeper Coach" units
-        // with the same ID/Reference.
-        System.out.println("Attempting to re-attach 'Sleeper Coach'...");
-        trainFormation.add("Sleeper Coach");
-
-        System.out.println("Formation process complete.\n");
-
-        // Step 4: Display the formation
-        // Notice the order remains exactly as added: Engine -> Sleeper -> Cargo -> Guard
-        System.out.println("Final Train Formation (Unique & Ordered):");
-        int seq = 1;
-        for (String bogie : trainFormation) {
-            System.out.println(seq + ". " + bogie);
-            seq++;
+        // Step 3: Iterate through the Map using entrySet()
+        // This allows us to access both the Key and the Value simultaneously
+        System.out.println("\nBogie Operational Attributes:");
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("Bogie Type: " + entry.getKey() +
+                    " | Capacity: " + entry.getValue());
         }
+
+        // Step 4: Fast lookup example
+        String query = "Sleeper";
+        System.out.println("\nQuick Search: The capacity of '" + query +
+                "' is " + bogieCapacityMap.get(query) + " seats.");
     }
 }

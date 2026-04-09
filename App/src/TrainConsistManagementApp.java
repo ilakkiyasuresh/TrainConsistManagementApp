@@ -1,36 +1,34 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
-        // Step 1: Initialize the LinkedList to represent the train chain
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // Step 1: Create a LinkedHashSet to maintain order and uniqueness
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        // Step 2: Build the initial train sequence
-        // We use addLast to append bogies to the end of the chain
-        trainConsist.add("Engine (Loco)");
-        trainConsist.add("Sleeper Coach");
-        trainConsist.add("AC Chair Car");
-        trainConsist.add("Cargo Bogie");
-        trainConsist.add("Guard Coach");
+        System.out.println("--- Building Train Consist (Insertion Order) ---");
 
-        System.out.println("Initial Train Formation:");
-        System.out.println(trainConsist);
+        // Step 2: Attach bogies in a specific sequence
+        trainFormation.add("Engine (Loco)");
+        trainFormation.add("Sleeper Coach");
+        trainFormation.add("Cargo Bogie");
+        trainFormation.add("Guard Coach");
 
-        // Step 3: Insert a Pantry Car at index 2 (between Sleeper and AC)
-        System.out.println("\n--- Attaching Pantry Car at position 2 ---");
-        trainConsist.add(2, "Pantry Car");
+        // Step 3: Attempting a duplicate attachment
+        // In a real yard, you can't have two physical "Sleeper Coach" units
+        // with the same ID/Reference.
+        System.out.println("Attempting to re-attach 'Sleeper Coach'...");
+        trainFormation.add("Sleeper Coach");
 
-        // Step 4: Detaching bogies (Removing first and last)
-        System.out.println("--- Detaching Engine and Guard Coach for maintenance ---");
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
+        System.out.println("Formation process complete.\n");
 
-        // Step 5: Display the final physical sequence
-        System.out.println("\nFinal Ordered Train Consist:");
-        int position = 1;
-        for (String bogie : trainConsist) {
-            System.out.println("Position " + position + ": " + bogie);
-            position++;
+        // Step 4: Display the formation
+        // Notice the order remains exactly as added: Engine -> Sleeper -> Cargo -> Guard
+        System.out.println("Final Train Formation (Unique & Ordered):");
+        int seq = 1;
+        for (String bogie : trainFormation) {
+            System.out.println(seq + ". " + bogie);
+            seq++;
         }
     }
 }

@@ -1,30 +1,36 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
-        // Step 1: Create a HashSet to store unique Bogie IDs
-        Set<String> bogieIDs = new HashSet<>();
+        // Step 1: Initialize the LinkedList to represent the train chain
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        System.out.println("--- Registering Bogie IDs ---");
+        // Step 2: Build the initial train sequence
+        // We use addLast to append bogies to the end of the chain
+        trainConsist.add("Engine (Loco)");
+        trainConsist.add("Sleeper Coach");
+        trainConsist.add("AC Chair Car");
+        trainConsist.add("Cargo Bogie");
+        trainConsist.add("Guard Coach");
 
-        // Step 2: Adding unique IDs
-        bogieIDs.add("BG101");
-        bogieIDs.add("BG102");
-        bogieIDs.add("BG103");
+        System.out.println("Initial Train Formation:");
+        System.out.println(trainConsist);
 
-        // Step 3: Attempting to add duplicate IDs
-        // HashSet will check if "BG101" exists and reject the second entry
-        bogieIDs.add("BG101");
-        bogieIDs.add("BG103");
+        // Step 3: Insert a Pantry Car at index 2 (between Sleeper and AC)
+        System.out.println("\n--- Attaching Pantry Car at position 2 ---");
+        trainConsist.add(2, "Pantry Car");
 
-        System.out.println("Registration process complete.\n");
+        // Step 4: Detaching bogies (Removing first and last)
+        System.out.println("--- Detaching Engine and Guard Coach for maintenance ---");
+        trainConsist.removeFirst();
+        trainConsist.removeLast();
 
-        // Step 4: Displaying the final set
-        System.out.println("Final Train Consist IDs (Unique):");
-        System.out.println(bogieIDs);
-
-        // Step 5: Verifying the count
-        System.out.println("\nTotal unique bogies registered: " + bogieIDs.size());
+        // Step 5: Display the final physical sequence
+        System.out.println("\nFinal Ordered Train Consist:");
+        int position = 1;
+        for (String bogie : trainConsist) {
+            System.out.println("Position " + position + ": " + bogie);
+            position++;
+        }
     }
 }

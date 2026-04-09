@@ -1,36 +1,30 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * UC1: Initialize Train and Display Consist Summary
- * This class serves as the entry point for the Train Consist Management App.
- */
 public class TrainConsistManagementApp {
-
     public static void main(String[] args) {
-        // 1. Display Welcome Message
-        System.out.println("=== Train Consist Management App ===");
-        System.out.println("Initializing the railway system...");
+        // Step 1: Create a HashSet to store unique Bogie IDs
+        Set<String> bogieIDs = new HashSet<>();
 
-        /* * 2. Initialize an empty List using ArrayList.
-         * We use the List interface as the type for flexibility (Abstraction),
-         * and ArrayList as the implementation because it's resizable.
-         * For now, we use String to represent bogie names/IDs.
-         */
-        List<String> trainConsist = new ArrayList<>();
+        System.out.println("--- Registering Bogie IDs ---");
 
-        // 3. Display the initial bogie count
-        // The size() method returns the number of elements currently in the list.
-        int initialCount = trainConsist.size();
+        // Step 2: Adding unique IDs
+        bogieIDs.add("BG101");
+        bogieIDs.add("BG102");
+        bogieIDs.add("BG103");
 
-        System.out.println("Current Consist Summary:");
-        System.out.println("Total Bogies attached to Engine: " + initialCount);
+        // Step 3: Attempting to add duplicate IDs
+        // HashSet will check if "BG101" exists and reject the second entry
+        bogieIDs.add("BG101");
+        bogieIDs.add("BG103");
 
-        if (initialCount == 0) {
-            System.out.println("Status: The engine is currently standing alone. Ready for assembly.");
-        }
+        System.out.println("Registration process complete.\n");
 
-        System.out.println("------------------------------------");
-        System.out.println("Program continues... Ready for next Use Case.");
+        // Step 4: Displaying the final set
+        System.out.println("Final Train Consist IDs (Unique):");
+        System.out.println(bogieIDs);
+
+        // Step 5: Verifying the count
+        System.out.println("\nTotal unique bogies registered: " + bogieIDs.size());
     }
 }
